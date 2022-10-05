@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">IntentService</string>
+    <string name="startService">Start Sevice</string>
+    <string name="startIntentService">Start Intent Sevice</string>
+    <string name="Hulosalar">Hulosalar :
+        \n\n1. Intent service oddiy servicedan farqli avtomatik boshqa potokda ishga tushadi shunig u-n buttonlar qotib qomaydi
+        \n\n2. IntentService da service tugamasdan qauta start qilinganda paralel yangi servis hosil qilmaydi
+        \n\n3. Intent Servisda onHandleIntent dagi vazifalar tugagach avtomatik destroy boladi. Stop qilish shart emas.
+        \n\n4. IntentService ham eskirib JobIntentService chiqibdi.
+    </string>
+</resources>
