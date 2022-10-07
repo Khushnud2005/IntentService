@@ -24,7 +24,6 @@ class MyIntentService :IntentService("my_intentService") {
     private var mIsSuccess = false
     private var mIsStopped = false
 
-    private var mHandler: Handler? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -51,16 +50,13 @@ class MyIntentService :IntentService("my_intentService") {
     }
 
     override fun onHandleIntent(intent: Intent?) {
-        mHandler!!.post {
-            Toast.makeText(
-                applicationContext, "Service is running",
-                Toast.LENGTH_LONG
-            ).show()
-        }
+
         val tm = intent!!.getIntExtra("time", 0)
         val label = intent.getStringExtra("task")
+
+        Toast.makeText(applicationContext, label,Toast.LENGTH_LONG).show()
         Log.d(TAG, "onHandleIntent start: $label")
-        // возвращаем результат
+        // sending result
         val responseIntent = Intent()
         responseIntent.action = MyIntentService.ACTION_MYINTENTSERVICE
         responseIntent.addCategory(Intent.CATEGORY_DEFAULT)
@@ -75,14 +71,14 @@ class MyIntentService :IntentService("my_intentService") {
             if (mIsStopped) {
                 break
             }
-            // посылаем промежуточные данные
+            // sending update
             val updateIntent = Intent()
             updateIntent.action = MyIntentService.ACTION_UPDATE
             updateIntent.addCategory(Intent.CATEGORY_DEFAULT)
             updateIntent.putExtra(MyIntentService.EXTRA_KEY_UPDATE, i)
             sendBroadcast(updateIntent)
             mIsSuccess = true
-            // формируем уведомление
+            // notification
             val notificationText = (100 * i / 10).toString() + " %"
             val notification = Notification.Builder(
                 applicationContext
@@ -99,10 +95,7 @@ class MyIntentService :IntentService("my_intentService") {
         Log.d(TAG, "onHandleIntent end: $label")
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        mHandler = Handler()
-        return super.onStartCommand(intent, flags, startId)
-    }
+
 
 
 }

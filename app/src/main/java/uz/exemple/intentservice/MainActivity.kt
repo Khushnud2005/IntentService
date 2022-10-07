@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         startButton.setOnClickListener {
             mNumberOfIntentService++
 
-            // Запускаем свой IntentService
+            // running IntentService
             mMyServiceIntent = Intent(this@MainActivity, MyIntentService::class.java)
             startService(mMyServiceIntent!!.putExtra("time", 5).putExtra("task","Moshinani zavad bo'lyapti"))
             startService(mMyServiceIntent!!.putExtra("time", 10).putExtra("task","Moshinani qizdirilyapti"))
@@ -51,14 +51,14 @@ class MainActivity : AppCompatActivity() {
         mMyBroadcastReceiver = MyBroadcastReceiver(mInfoTextView)
         mUpdateBroadcastReceiver = UpdateBroadcastReceiver(mProgressBar)
 
-        // регистрируем BroadcastReceiver
+        // register BroadcastReceiver
         val intentFilter = IntentFilter(
             MyIntentService.ACTION_MYINTENTSERVICE
         )
         intentFilter.addCategory(Intent.CATEGORY_DEFAULT)
         registerReceiver(mMyBroadcastReceiver, intentFilter)
 
-        // Регистрируем второй приёмник
+        // register second receiver
         val updateIntentFilter = IntentFilter(
             MyIntentService.ACTION_UPDATE
         )
